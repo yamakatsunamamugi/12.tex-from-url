@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL to Docs Converter</title>
+  <style>
+    body {
+      width: 400px;
+      min-height: 500px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .container {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .status {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .status.authenticated {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status.not-authenticated {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #e9ecef;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .progress {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+    }
+
+    .results {
+      display: none;
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .result-item {
+      padding: 8px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .result-success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .result-error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 URL → Google Docs 変換</h1>
+
+    <div id="status" class="status not-authenticated">
+      認証状態: 未認証
+    </div>
+
+    <div class="form-group">
+      <label for="sheetId">スプレッドシートID</label>
+      <input type="text" id="sheetId" placeholder="例: 1ABC...xyz">
+      <div class="help-text">
+        スプレッドシートURLの /d/ と /edit の間の文字列
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="urlRange">URL列の範囲</label>
+      <input type="text" id="urlRange" placeholder="例: A2:A100">
+      <div class="help-text">「必要なURL」列の範囲</div>
+    </div>
+
+    <div class="form-group">
+      <label for="docRange">ドキュメント列</label>
+      <input type="text" id="docRange" placeholder="例: B">
+      <div class="help-text">「ドキュメント化」列の列名（B列など）</div>
+    </div>
+
+    <div class="button-group">
+      <button id="authBtn" class="btn-secondary">認証</button>
+      <button id="processBtn" class="btn-primary" disabled>処理開始</button>
+    </div>
+
+    <div id="progress" class="progress">
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+      <div id="progressText" class="progress-text">0 / 0</div>
+    </div>
+
+    <div id="results" class="results"></div>
+  </div>
+
+  <script src="04_popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "URL to Google Docs Converter",
+  "version": "1.0.0",
+  "description": "URLのコンテンツをGoogle Docsに変換して保存するChrome拡張機能",
+  "permissions": [
+    "identity",
+    "storage",
+    "activeTab",
+    "https://www.googleapis.com/*",
+    "https://sheets.googleapis.com/*",
+    "https://docs.googleapis.com/*"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "oauth2": {
+    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets",
+      "https://www.googleapis.com/auth/documents"
+    ]
+  },
+  "background": {
+    "service_worker": "02_background.js"
+  },
+  "action": {
+    "default_popup": "03_popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

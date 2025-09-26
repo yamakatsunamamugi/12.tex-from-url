@@ -12,18 +12,40 @@ class SimplePopupController {
     this.statusEl = document.getElementById("status");
     this.authBtn = document.getElementById("authBtn");
     this.processBtn = document.getElementById("processBtn");
+    this.stopBtn = document.getElementById("stopBtn");
+    this.deleteBtn = document.getElementById("deleteBtn");
     this.sheetUrlInput = document.getElementById("sheetUrl");
     this.progressEl = document.getElementById("progress");
     this.progressFillEl = document.getElementById("progressFill");
     this.progressTextEl = document.getElementById("progressText");
     this.errorMessageEl = document.getElementById("errorMessage");
     this.successMessageEl = document.getElementById("successMessage");
-    this.advancedToggle = document.getElementById("advancedToggle");
-    this.advancedContent = document.getElementById("advancedContent");
-    this.toggleIcon = document.getElementById("toggleIcon");
     this.saveBtn = document.getElementById("saveBtn");
     this.editSavedBtn = document.getElementById("editSavedBtn");
     this.openLinkBtn = document.getElementById("openLinkBtn");
+
+    // 重要な要素の存在確認とデバッグ
+    console.log("要素取得結果:");
+    console.log("saveBtn:", this.saveBtn);
+    console.log("editSavedBtn:", this.editSavedBtn);
+    console.log("openLinkBtn:", this.openLinkBtn);
+
+    if (!this.saveBtn) {
+      console.error("保存ボタン要素が見つかりません");
+    }
+    if (!this.editSavedBtn) {
+      console.error("保存済み編集ボタン要素が見つかりません");
+    }
+    if (!this.openLinkBtn) {
+      console.error("リンクを開くボタン要素が見つかりません");
+    }
+
+    // 詳細設定の要素
+    this.urlColumnInput = document.getElementById("urlColumn");
+    this.docColumnInput = document.getElementById("docColumn");
+    this.nameColumnInput = document.getElementById("nameColumn");
+    this.subjectColumnInput = document.getElementById("subjectColumn");
+    this.startRowInput = document.getElementById("startRow");
   }
 
   initEventListeners() {
@@ -32,6 +54,16 @@ class SimplePopupController {
 
     // 処理開始ボタン
     this.processBtn.addEventListener("click", () => this.startProcessing());
+
+    // 削除ボタン
+    if (this.deleteBtn) {
+      this.deleteBtn.addEventListener("click", () => this.startDeleteProcess());
+    }
+
+    // 停止ボタン
+    if (this.stopBtn) {
+      this.stopBtn.addEventListener("click", () => this.stopProcessing());
+    }
 
     // URL入力の監視
     this.sheetUrlInput.addEventListener("input", () => {
@@ -48,22 +80,53 @@ class SimplePopupController {
     });
 
     // 保存ボタン
-    this.saveBtn.addEventListener("click", () => this.saveCurrentUrl());
+    if (this.saveBtn) {
+      this.saveBtn.addEventListener("click", () => {
+        console.log("保存ボタンがクリックされました");
+        this.saveCurrentUrl();
+      });
+      console.log("保存ボタンのイベントリスナーを設定しました");
+    } else {
+      console.error(
+        "保存ボタンが見つからないため、イベントリスナーを設定できません",
+      );
+    }
 
     // 保存済み編集ボタン
-    this.editSavedBtn.addEventListener("click", () => this.editSavedUrls());
+    if (this.editSavedBtn) {
+      this.editSavedBtn.addEventListener("click", () => {
+        console.log("保存済み編集ボタンがクリックされました");
+        this.editSavedUrls();
+      });
+    } else {
+      console.error(
+        "保存済み編集ボタンが見つからないため、イベントリスナーを設定できません",
+      );
+    }
 
     // リンクを開くボタン
-    this.openLinkBtn.addEventListener("click", () => this.openCurrentLink());
+    if (this.openLinkBtn) {
+      this.openLinkBtn.addEventListener("click", () => {
+        console.log("リンクを開くボタンがクリックされました");
+        this.openCurrentLink();
+      });
+    } else {
+      console.error(
+        "リンクを開くボタンが見つからないため、イベントリスナーを設定できません",
+      );
+    }
 
-    // 詳細設定の開閉
-    this.advancedToggle.addEventListener("click", () => {
-      this.advancedContent.classList.toggle("show");
-      this.toggleIcon.textContent = this.advancedContent.classList.contains(
-        "show",
-      )
-        ? "▲"
-        : "▼";
+    // 詳細設定フィールドの変更監視
+    [
+      this.urlColumnInput,
+      this.docColumnInput,
+      this.nameColumnInput,
+      this.subjectColumnInput,
+      this.startRowInput,
+    ].forEach((input) => {
+      if (input) {
+        input.addEventListener("change", () => this.saveSettings());
+      }
     });
   }
 
@@ -111,11 +174,13 @@ class SimplePopupController {
       this.statusEl.className = "status authenticated";
       this.authBtn.textContent = "再認証";
       this.processBtn.disabled = !this.sheetUrlInput.value.trim();
+      this.deleteBtn.disabled = !this.sheetUrlInput.value.trim();
     } else {
       this.statusEl.textContent = "認証状態: 未認証";
       this.statusEl.className = "status not-authenticated";
       this.authBtn.textContent = "Googleでログイン";
       this.processBtn.disabled = true;
+      this.deleteBtn.disabled = true;
     }
   }
 
@@ -148,13 +213,32 @@ class SimplePopupController {
     this.processing = true;
     this.processBtn.disabled = true;
     this.authBtn.disabled = true;
+    this.deleteBtn.disabled = true;
     this.processBtn.textContent = "処理中...";
+
+    // 停止ボタンを表示（デバッグログ付き）
+    console.log("停止ボタン要素:", this.stopBtn);
+    if (this.stopBtn) {
+      this.stopBtn.style.display = "inline-block";
+      this.stopBtn.disabled = false;
+      console.log("停止ボタンを表示しました");
+    } else {
+      console.error("停止ボタン要素が見つかりません");
+    }
     this.progressEl.classList.add("active");
     this.updateProgress(0, "準備中...");
 
-    // 処理データの準備 - v2では列の範囲指定は不要（自動検出される）
+    // 処理データの準備（手動設定 + 自動検出）
     const data = {
       sheetId: sheetId,
+      // 手動設定（空の場合は自動検出）
+      manualConfig: {
+        urlColumn: this.urlColumnInput?.value.trim() || null,
+        docColumn: this.docColumnInput?.value.trim() || null,
+        nameColumn: this.nameColumnInput?.value.trim() || null,
+        subjectColumn: this.subjectColumnInput?.value.trim() || null,
+        startRow: parseInt(this.startRowInput?.value || "3"),
+      },
     };
 
     // バックグラウンドに処理を依頼
@@ -164,7 +248,15 @@ class SimplePopupController {
         this.processing = false;
         this.processBtn.disabled = false;
         this.authBtn.disabled = false;
+        this.deleteBtn.disabled = false;
         this.processBtn.textContent = "処理開始";
+
+        // 停止ボタンを非表示（デバッグログ付き）
+        if (this.stopBtn) {
+          this.stopBtn.style.display = "none";
+          this.stopBtn.disabled = true;
+          console.log("停止ボタンを非表示にしました");
+        }
 
         if (response && response.success) {
           this.updateProgress(100, "完了！");
@@ -232,6 +324,12 @@ class SimplePopupController {
     const settings = {
       sheetUrl: this.sheetUrlInput.value,
       sheetId: sheetId,
+      // 詳細設定
+      urlColumn: this.urlColumnInput?.value || "",
+      docColumn: this.docColumnInput?.value || "",
+      nameColumn: this.nameColumnInput?.value || "",
+      subjectColumn: this.subjectColumnInput?.value || "",
+      startRow: parseInt(this.startRowInput?.value || "3"),
     };
     chrome.storage.local.set({ settings });
   }
@@ -241,6 +339,18 @@ class SimplePopupController {
       if (result.settings) {
         this.sheetUrlInput.value = result.settings.sheetUrl || "";
 
+        // 詳細設定の読み込み
+        if (this.urlColumnInput)
+          this.urlColumnInput.value = result.settings.urlColumn || "";
+        if (this.docColumnInput)
+          this.docColumnInput.value = result.settings.docColumn || "";
+        if (this.nameColumnInput)
+          this.nameColumnInput.value = result.settings.nameColumn || "";
+        if (this.subjectColumnInput)
+          this.subjectColumnInput.value = result.settings.subjectColumn || "";
+        if (this.startRowInput)
+          this.startRowInput.value = result.settings.startRow || "3";
+
         // URL検証
         this.validateAndExtractId();
       }
@@ -248,20 +358,34 @@ class SimplePopupController {
   }
 
   saveCurrentUrl() {
+    console.log("saveCurrentUrl関数が呼び出されました");
+
     const url = this.sheetUrlInput.value.trim();
+    console.log("取得したURL:", url);
+
     if (!url) {
+      console.log("URLが空のため、エラーメッセージを表示");
       this.showError("URLを入力してください");
       return;
     }
 
+    console.log("Chrome storage APIでsavedUrlsを取得中...");
     chrome.storage.local.get("savedUrls", (result) => {
+      console.log("Chrome storage結果:", result);
+
       const savedUrls = result.savedUrls || [];
+      console.log("現在の保存済みURLリスト:", savedUrls);
+
       if (!savedUrls.includes(url)) {
+        console.log("新しいURLを追加中...");
         savedUrls.push(url);
+
         chrome.storage.local.set({ savedUrls }, () => {
+          console.log("URL保存完了");
           this.showSuccess("URLを保存しました");
         });
       } else {
+        console.log("URLは既に保存済み");
         this.showError("このURLは既に保存済みです");
       }
     });
@@ -312,6 +436,56 @@ class SimplePopupController {
             this.showError("無効な番号です");
           }
         }
+      }
+    });
+  }
+
+  async startDeleteProcess() {
+    const sheetId = this.validateAndExtractId();
+    if (!sheetId) {
+      this.showError("有効なスプレッドシートURLを入力してください");
+      return;
+    }
+
+    // 確認なしで3行目以降のドキュメントをすべて削除
+    this.deleteBtn.disabled = true;
+    this.deleteBtn.textContent = "削除中...";
+    this.progressEl.classList.add("active");
+    this.updateProgress(0, "ドキュメントを削除中...");
+
+    chrome.runtime.sendMessage(
+      {
+        action: "deleteAllDocs",
+        data: { sheetId: sheetId },
+      },
+      (response) => {
+        this.deleteBtn.disabled = false;
+        this.deleteBtn.textContent = "🗑️ 3行目以降を全削除";
+        this.progressEl.classList.remove("active");
+
+        if (response && response.success) {
+          const deletedCount =
+            response.results?.filter((r) => r.success).length || 0;
+          const failedCount =
+            response.results?.filter((r) => !r.success).length || 0;
+
+          let message = `削除完了: ${deletedCount}件のドキュメントを削除`;
+          if (failedCount > 0) {
+            message += `、${failedCount}件失敗`;
+          }
+          this.showSuccess(message);
+        } else {
+          this.showError(`削除失敗: ${response?.error || "不明なエラー"}`);
+        }
+      },
+    );
+  }
+
+  stopProcessing() {
+    chrome.runtime.sendMessage({ action: "stopProcessing" }, (response) => {
+      if (response && response.success) {
+        this.showSuccess("処理停止を要求しました");
+        this.stopBtn.disabled = true;
       }
     });
   }

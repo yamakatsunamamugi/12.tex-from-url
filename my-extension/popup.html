@@ -319,15 +319,128 @@
         </div>
       </div>
 
-      <!-- 詳細設定（折りたたみ） - v2では自動検出のため不要 -->
-      <div class="advanced-section" style="display: none;">
-        <div class="advanced-toggle" id="advancedToggle">
-          <span>⚙️ 詳細設定</span>
-          <span id="toggleIcon">▼</span>
+      <!-- 列と行の設定 -->
+      <div class="advanced-section">
+        <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-size: 16px;">
+          ⚙️ 列と行の設定
         </div>
 
-        <div class="advanced-content" id="advancedContent">
-          <!-- 自動検出機能により設定不要 -->
+        <div class="advanced-content show" id="advancedContent">
+          <div class="form-group">
+            <label>名前列:</label>
+            <select id="nameColumn">
+              <option value="">自動検出</option>
+              <option value="HIDDEN">非表示</option>
+              <option value="A">A列</option>
+              <option value="B">B列</option>
+              <option value="C">C列</option>
+              <option value="D">D列</option>
+              <option value="E">E列</option>
+              <option value="F">F列</option>
+              <option value="G">G列</option>
+              <option value="H">H列</option>
+              <option value="I">I列</option>
+              <option value="J">J列</option>
+              <option value="K">K列</option>
+              <option value="L">L列</option>
+              <option value="M">M列</option>
+              <option value="N">N列</option>
+              <option value="O">O列</option>
+              <option value="P">P列</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>件名列:</label>
+            <select id="subjectColumn">
+              <option value="">自動検出</option>
+              <option value="HIDDEN">非表示</option>
+              <option value="A">A列</option>
+              <option value="B">B列</option>
+              <option value="C">C列</option>
+              <option value="D">D列</option>
+              <option value="E">E列</option>
+              <option value="F">F列</option>
+              <option value="G">G列</option>
+              <option value="H">H列</option>
+              <option value="I">I列</option>
+              <option value="J">J列</option>
+              <option value="K">K列</option>
+              <option value="L">L列</option>
+              <option value="M">M列</option>
+              <option value="N">N列</option>
+              <option value="O">O列</option>
+              <option value="P">P列</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>URL列:</label>
+            <select id="urlColumn">
+              <option value="">自動検出</option>
+              <option value="A">A列</option>
+              <option value="B">B列</option>
+              <option value="C">C列</option>
+              <option value="D">D列</option>
+              <option value="E">E列</option>
+              <option value="F">F列</option>
+              <option value="G">G列</option>
+              <option value="H">H列</option>
+              <option value="I">I列</option>
+              <option value="J">J列</option>
+              <option value="K">K列</option>
+              <option value="L">L列</option>
+              <option value="M">M列</option>
+              <option value="N">N列</option>
+              <option value="O">O列</option>
+              <option value="P">P列</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>ドキュメント出力列:</label>
+            <select id="docColumn">
+              <option value="">自動検出</option>
+              <option value="A">A列</option>
+              <option value="B">B列</option>
+              <option value="C">C列</option>
+              <option value="D">D列</option>
+              <option value="E">E列</option>
+              <option value="F">F列</option>
+              <option value="G">G列</option>
+              <option value="H">H列</option>
+              <option value="I">I列</option>
+              <option value="J">J列</option>
+              <option value="K">K列</option>
+              <option value="L">L列</option>
+              <option value="M">M列</option>
+              <option value="N">N列</option>
+              <option value="O">O列</option>
+              <option value="P">P列</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>開始行:</label>
+            <select id="startRow">
+              <option value="1">1行目</option>
+              <option value="2">2行目</option>
+              <option value="3" selected>3行目</option>
+              <option value="4">4行目</option>
+              <option value="5">5行目</option>
+              <option value="6">6行目</option>
+              <option value="7">7行目</option>
+              <option value="8">8行目</option>
+              <option value="9">9行目</option>
+              <option value="10">10行目</option>
+            </select>
+          </div>
+
+          <div style="font-size: 12px; color: #666; margin-top: 10px;">
+            ※ 自動検出を選択すると2行目のヘッダーから自動的に列を検出します<br>
+            ※ 非表示を選択するとタイトルにその項目は含まれません<br>
+            ※ 終了行はURLが入力されている最後の行まで自動処理されます
+          </div>
         </div>
       </div>
 
@@ -335,6 +448,16 @@
       <div class="button-group">
         <button id="authBtn" class="btn btn-secondary">認証</button>
         <button id="processBtn" class="btn btn-primary" disabled>処理開始</button>
+        <button id="stopBtn" class="btn btn-secondary" disabled style="display: none;">
+          ⏹️ 停止
+        </button>
+      </div>
+
+      <!-- 削除ボタン -->
+      <div class="button-group" style="margin-top: 10px;">
+        <button id="deleteBtn" class="btn btn-secondary" disabled>
+          🗑️ 3行目以降を全削除
+        </button>
       </div>
 
       <!-- 進捗表示 -->

@@ -24,9 +24,7 @@
     "type": "module"
   },
 
-  "action": {
-    "default_popup": "popup.html"
-  },
+  "action": {},
 
   "content_scripts": [
     {

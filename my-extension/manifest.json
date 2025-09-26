@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "URL to Google Docs Converter",
+  "version": "1.0.0",
+  "description": "Extract webpage content from URLs in Google Sheets and save to Google Docs",
+
+  "permissions": [
+    "identity",
+    "tabs",
+    "scripting",
+    "activeTab",
+    "storage",
+    "contextMenus",
+    "windows"
+  ],
+
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+
+  "background": {
+    "service_worker": "02_background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["08_content_bundled.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "oauth2": {
+    "client_id": "1046374341476-u7sqrl8cjg0iqm51iu23nfdkjlge38ou.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets",
+      "https://www.googleapis.com/auth/documents",
+      "https://www.googleapis.com/auth/drive.file"
+    ]
+  }
+}

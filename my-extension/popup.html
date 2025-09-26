@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL to Docs Converter</title>
+  <style>
+    body {
+      width: 450px;
+      min-height: 400px;
+      padding: 0;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .container {
+      padding: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #333;
+      font-size: 20px;
+      margin: 0 0 20px 0;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .status {
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .status.authenticated {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status.not-authenticated {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .main-input-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .url-input-label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .url-input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: all 0.3s;
+    }
+
+    .url-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .url-input.valid {
+      border-color: #28a745;
+    }
+
+    .url-input.invalid {
+      border-color: #dc3545;
+    }
+
+    .url-help {
+      font-size: 12px;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    .advanced-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+    }
+
+    .advanced-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      user-select: none;
+    }
+
+    .advanced-toggle:hover {
+      background: #e9ecef;
+    }
+
+    .advanced-content {
+      display: none;
+    }
+
+    .advanced-content.show {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #f8f9fa;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .btn-icon:hover {
+      background: #f8f9fa;
+      border-color: #667eea;
+    }
+
+    .btn-icon:active {
+      transform: scale(0.95);
+    }
+
+    .progress {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .progress.active {
+      display: block;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #e9ecef;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #28a745, #20c997);
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>
+        📄 URL → Google Docs 変換
+      </h1>
+
+      <div id="status" class="status not-authenticated">
+        認証状態を確認中...
+      </div>
+
+      <!-- メイン入力エリア -->
+      <div class="main-input-section">
+        <label class="url-input-label">
+          スプレッドシートのURLを入力
+        </label>
+        <div style="display: flex; gap: 8px; align-items: stretch;">
+          <input
+            type="text"
+            id="sheetUrl"
+            class="url-input"
+            placeholder="https://docs.google.com/spreadsheets/d/..."
+            style="flex: 1;"
+          >
+          <button id="saveBtn" class="btn-icon" title="保存">
+            💾
+          </button>
+          <button id="editSavedBtn" class="btn-icon" title="保存済みを編集">
+            ✏️
+          </button>
+          <button id="openLinkBtn" class="btn-icon" title="リンクを開く">
+            🔗
+          </button>
+        </div>
+        <div class="url-help">
+          GoogleスプレッドシートのURLをそのまま貼り付けてください
+        </div>
+      </div>
+
+      <!-- 詳細設定（折りたたみ） - v2では自動検出のため不要 -->
+      <div class="advanced-section" style="display: none;">
+        <div class="advanced-toggle" id="advancedToggle">
+          <span>⚙️ 詳細設定</span>
+          <span id="toggleIcon">▼</span>
+        </div>
+
+        <div class="advanced-content" id="advancedContent">
+          <!-- 自動検出機能により設定不要 -->
+        </div>
+      </div>
+
+      <!-- ボタン -->
+      <div class="button-group">
+        <button id="authBtn" class="btn btn-secondary">認証</button>
+        <button id="processBtn" class="btn btn-primary" disabled>処理開始</button>
+      </div>
+
+      <!-- 進捗表示 -->
+      <div id="progress" class="progress">
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <div id="progressText" class="progress-text">準備中...</div>
+      </div>
+
+      <!-- メッセージ表示エリア -->
+      <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

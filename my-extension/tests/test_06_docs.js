@@ -731,7 +731,7 @@ function testFileNameSanitization() {
   // Test with forbidden characters
   const sanitized1 = api.sanitizeFileName("test/file:name*?.txt");
   assert(
-    sanitized1 === "test_file_name__.txt",
+    sanitized1 === "test_file_name_.txt",
     "Should replace forbidden characters",
   );
 

@@ -317,6 +317,37 @@
         <div class="url-help">
           GoogleスプレッドシートのURLをそのまま貼り付けてください
         </div>
+
+        <!-- URL入力の詳細補足 -->
+        <details style="margin-top: 10px; background: #f0f7ff; padding: 10px; border-radius: 5px; border: 1px solid #cce0ff;">
+          <summary style="cursor: pointer; font-size: 12px; font-weight: 600; color: #667eea;">🔍 URL入力についての詳しい説明</summary>
+          <div style="margin-top: 10px; font-size: 11px; line-height: 1.6; color: #555;">
+            <strong>✅ 正しいURLの例：</strong>
+            <div style="background: white; padding: 8px; margin: 5px 0; border-radius: 3px; font-family: monospace; word-break: break-all;">
+              https://docs.google.com/spreadsheets/d/1abcd-EXAMPLE-1234567890/edit#gid=0
+            </div>
+
+            <strong>❌ 間違ったURLの例：</strong>
+            <ul style="margin: 5px 0; padding-left: 20px;">
+              <li><code>docs.google.com/...</code> → https://が必要</li>
+              <li><code>https://sheets.google.com/...</code> → sheetsではなくdocs</li>
+              <li><code>http://docs.google.com/...</code> → httpsを使用</li>
+            </ul>
+
+            <strong>💡 URLの取得方法：</strong>
+            <ol style="margin: 5px 0; padding-left: 20px;">
+              <li>GoogleスプレッドシートをChromeで開く</li>
+              <li>アドレスバーの全文を選択（Ctrl+L または Cmd+L）</li>
+              <li>コピー（Ctrl+C または Cmd+C）</li>
+              <li>この入力欄に貼り付け（Ctrl+V または Cmd+V）</li>
+            </ol>
+
+            <div style="background: #fffbf0; padding: 8px; border-radius: 3px; margin-top: 8px; border-left: 3px solid #ffa500;">
+              <strong>⚠️ 注意：</strong>スプレッドシートは「閲覧可能」または「編集可能」の権限が必要です。
+              非公開のシートは事前に共有設定を確認してください。
+            </div>
+          </div>
+        </details>
       </div>
 
       <!-- 列と行の設定 -->
@@ -324,6 +355,112 @@
         <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-size: 16px;">
           ⚙️ 列と行の設定
         </div>
+
+        <!-- 設定の詳細補足 -->
+        <details style="margin-bottom: 15px; background: #fff5f0; padding: 10px; border-radius: 5px; border: 1px solid #ffddcc;">
+          <summary style="cursor: pointer; font-size: 12px; font-weight: 600; color: #ff6600;">📈 列と行の設定について詳しく知る</summary>
+          <div style="margin-top: 10px; font-size: 11px; line-height: 1.6; color: #555;">
+
+            <div style="background: white; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+              <strong>📝 スプレッドシートの構成例：</strong>
+              <table style="width: 100%; margin: 10px 0; border-collapse: collapse; font-size: 11px;">
+                <tr style="background: #f0f0f0;">
+                  <th style="border: 1px solid #ddd; padding: 5px;"></th>
+                  <th style="border: 1px solid #ddd; padding: 5px;">A列</th>
+                  <th style="border: 1px solid #ddd; padding: 5px;">B列</th>
+                  <th style="border: 1px solid #ddd; padding: 5px;">C列</th>
+                  <th style="border: 1px solid #ddd; padding: 5px;">D列</th>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #f8f8f8;"><strong>1行目</strong></td>
+                  <td colspan="4" style="border: 1px solid #ddd; padding: 5px; text-align: center; background: #e6f3ff;">タイトル行（任意）</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #f8f8f8;"><strong>2行目</strong></td>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #fff9e6;">名前</td>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #fff9e6;">件名</td>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #fff9e6;">URL</td>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #fff9e6;">ドキュメントURL</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #f8f8f8;"><strong>3行目</strong></td>
+                  <td style="border: 1px solid #ddd; padding: 5px;">田中太郎</td>
+                  <td style="border: 1px solid #ddd; padding: 5px;">ニュース記事1</td>
+                  <td style="border: 1px solid #ddd; padding: 5px; color: blue;">https://example.com/1</td>
+                  <td style="border: 1px solid #ddd; padding: 5px; color: green;">(自動出力)</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #ddd; padding: 5px; background: #f8f8f8;"><strong>4行目</strong></td>
+                  <td style="border: 1px solid #ddd; padding: 5px;">佐藤花子</td>
+                  <td style="border: 1px solid #ddd; padding: 5px;">ブログ記事2</td>
+                  <td style="border: 1px solid #ddd; padding: 5px; color: blue;">https://example.com/2</td>
+                  <td style="border: 1px solid #ddd; padding: 5px; color: green;">(自動出力)</td>
+                </tr>
+              </table>
+              <div style="font-size: 10px; color: #666; margin-top: 5px;">
+                ※ 黄色の2行目がヘッダー行で、ここから列を自動検出します
+              </div>
+            </div>
+
+            <div style="background: white; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+              <strong>🎯 各列の役割説明：</strong>
+
+              <div style="margin: 8px 0; padding: 8px; background: #f0f9ff; border-left: 3px solid #0099ff;">
+                <strong>👤 名前列：</strong><br>
+                ドキュメントのタイトルに含まれる作成者名や担当者名。<br>
+                <span style="color: #666;">例：「田中太郎_ニュース記事1_2024-01-01」の「田中太郎」部分</span><br>
+                <span style="color: #ff6600;">※ HIDDENを選ぶとタイトルに含まれません</span>
+              </div>
+
+              <div style="margin: 8px 0; padding: 8px; background: #fff0f5; border-left: 3px solid #ff0066;">
+                <strong>📝 件名列：</strong><br>
+                ドキュメントのタイトルに含まれる件名やタイトル。<br>
+                <span style="color: #666;">例：「田中太郎_ニュース記事1_2024-01-01」の「ニュース記事1」部分</span><br>
+                <span style="color: #ff6600;">※ HIDDENを選ぶとタイトルに含まれません</span>
+              </div>
+
+              <div style="margin: 8px 0; padding: 8px; background: #f0fff0; border-left: 3px solid #00cc00;">
+                <strong>🔗 URL列（必須）：</strong><br>
+                取得したいWebページのURL。この列は必須です。<br>
+                <span style="color: #666;">例：https://example.com/article/123</span><br>
+                <span style="color: #ff0000;">※ この列が空の行は処理されません</span>
+              </div>
+
+              <div style="margin: 8px 0; padding: 8px; background: #fff0ff; border-left: 3px solid #cc00ff;">
+                <strong>📄 ドキュメント出力列：</strong><br>
+                作成されたGoogleドキュメントのURLが自動で書き込まれる列。<br>
+                <span style="color: #666;">例：https://docs.google.com/document/d/xxxxx/edit</span><br>
+                <span style="color: #0066cc;">※ 処理後に自動で入力されます（事前入力不要）</span>
+              </div>
+            </div>
+
+            <div style="background: white; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+              <strong>📊 開始行の設定：</strong>
+              <p style="margin: 5px 0;">
+                データの処理を開始する行を指定します。
+              </p>
+              <ul style="margin: 5px 0; padding-left: 20px;">
+                <li><strong>1行目：</strong>タイトル行も含めて処理（通常不要）</li>
+                <li><strong>2行目：</strong>ヘッダー行も含めて処理（通常不要）</li>
+                <li><strong>3行目：</strong>データ行から処理（推奨）✅</li>
+                <li><strong>4行目以降：</strong>特定の行をスキップしたい場合</li>
+              </ul>
+              <div style="background: #fffbf0; padding: 8px; border-radius: 3px; margin-top: 8px;">
+                💡 <strong>ヒント：</strong>終了行は指定不要です。URLが入力されている最後の行まで自動的に処理されます。
+              </div>
+            </div>
+
+            <div style="background: #ffcccc; padding: 10px; border-radius: 5px;">
+              <strong>⚠️ 重要な注意事項：</strong>
+              <ul style="margin: 5px 0; padding-left: 20px;">
+                <li>列の順番は自由です（A列が名前である必要はありません）</li>
+                <li>空白列があっても問題ありません</li>
+                <li>ヘッダー名は日本語・英語どちらでもOK</li>
+                <li>大文字・小文字は区別しません</li>
+              </ul>
+            </div>
+          </div>
+        </details>
 
         <div class="advanced-content show" id="advancedContent">
           <div class="form-group">
@@ -458,6 +595,319 @@
         <button id="deleteBtn" class="btn btn-secondary" disabled>
           🗑️ 3行目以降を全削除
         </button>
+      </div>
+
+      <!-- 使い方・Q&A セクション -->
+      <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #e9ecef;">
+        <details style="background: #f0f7ff; border-radius: 8px; padding: 15px; border: 1px solid #667eea;">
+          <summary style="font-weight: 600; cursor: pointer; color: #333; font-size: 15px;">
+            📖 詳しい使い方ガイド（初心者向け）
+          </summary>
+          <div style="margin-top: 15px; font-size: 13px; line-height: 1.8; color: #555;">
+
+            <!-- このツールについて -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="color: #667eea; margin-top: 0;">🎯 このツールは何をするもの？</h4>
+              <p style="margin: 10px 0;">
+                <strong>「URL to Docs Converter」</strong>は、Googleスプレッドシートに記載されたWebページのURL一覧を読み込んで、
+                各ページの内容を自動的にGoogle ドキュメントに変換・保存するChrome拡張機能です。
+              </p>
+              <p style="background: #fffbf0; padding: 10px; border-radius: 5px; border-left: 3px solid #ffa500;">
+                <strong>例：</strong>ニュース記事のURLリストから、各記事の内容をドキュメント化して保存したい時などに便利です。
+              </p>
+            </div>
+
+            <!-- 必要な準備 -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="color: #667eea;">📋 使い始める前の準備</h4>
+              <ol style="padding-left: 20px; margin: 10px 0;">
+                <li style="margin: 8px 0;">
+                  <strong>Googleスプレッドシートを用意する</strong><br>
+                  <span style="color: #666; font-size: 12px;">→ URLリストを管理するためのスプレッドシートが必要です</span>
+                </li>
+                <li style="margin: 8px 0;">
+                  <strong>スプレッドシートの2行目にヘッダーを作成</strong><br>
+                  <span style="color: #666; font-size: 12px;">→ 例：A列「名前」、B列「件名」、C列「URL」、D列「ドキュメントURL」</span>
+                </li>
+                <li style="margin: 8px 0;">
+                  <strong>3行目以降にデータを入力</strong><br>
+                  <span style="color: #666; font-size: 12px;">→ 変換したいWebページのURLを入力します</span>
+                </li>
+              </ol>
+              <div style="background: #f0f9ff; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                💡 <strong>ヒント：</strong>1行目はタイトル行として使えます（処理には影響しません）
+              </div>
+            </div>
+
+            <!-- ステップバイステップガイド -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="color: #667eea;">🚀 実際の使い方（ステップバイステップ）</h4>
+
+              <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; margin: 10px 0;">
+                <strong>ステップ1: Google認証</strong>
+                <ol style="margin: 5px 0; padding-left: 20px;">
+                  <li>「認証」ボタンをクリック</li>
+                  <li>Googleアカウントでログイン</li>
+                  <li>必要な権限を許可（スプレッドシートとドキュメントへのアクセス）</li>
+                  <li>「認証済み」と表示されたら成功です✅</li>
+                </ol>
+              </div>
+
+              <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; margin: 10px 0;">
+                <strong>ステップ2: スプレッドシートのURL入力</strong>
+                <ol style="margin: 5px 0; padding-left: 20px;">
+                  <li>GoogleスプレッドシートをChromeで開く</li>
+                  <li>アドレスバーからURLをコピー（Ctrl+C または Cmd+C）</li>
+                  <li>この拡張機能の入力欄に貼り付け（Ctrl+V または Cmd+V）</li>
+                  <li>URLが正しく入力されると枠が緑色になります</li>
+                </ol>
+              </div>
+
+              <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; margin: 10px 0;">
+                <strong>ステップ3: 列の設定（通常は自動）</strong>
+                <p style="margin: 5px 0;">多くの場合、自動検出でうまくいきますが、必要に応じて手動設定できます：</p>
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                  <li><strong>名前列：</strong>ドキュメントのタイトルに使う名前</li>
+                  <li><strong>件名列：</strong>ドキュメントのタイトルに追加する件名</li>
+                  <li><strong>URL列：</strong>取得したいWebページのURL（必須）</li>
+                  <li><strong>ドキュメント出力列：</strong>作成したGoogleドキュメントのURLを保存する列</li>
+                  <li><strong>開始行：</strong>データが始まる行（通常は3行目）</li>
+                </ul>
+              </div>
+
+              <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; margin: 10px 0;">
+                <strong>ステップ4: 処理開始</strong>
+                <ol style="margin: 5px 0; padding-left: 20px;">
+                  <li>「処理開始」ボタンをクリック</li>
+                  <li>進捗バーで処理状況を確認</li>
+                  <li>処理が完了すると成功メッセージが表示されます</li>
+                  <li>スプレッドシートのドキュメント出力列にURLが追加されます</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- 各ボタンの詳細説明 -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="color: #667eea;">🔧 各ボタンの詳しい機能説明</h4>
+
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 10px; border: 1px solid #dee2e6; width: 80px;"><strong>💾 保存</strong></td>
+                  <td style="padding: 10px; border: 1px solid #dee2e6;">
+                    現在入力されているスプレッドシートURLをブラウザに保存します。<br>
+                    <span style="color: #666; font-size: 11px;">よく使うスプレッドシートを登録しておくと、次回から選ぶだけで使えます。</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>✏️ 編集</strong></td>
+                  <td style="padding: 10px; border: 1px solid #dee2e6;">
+                    保存済みのURLリストを管理できます。<br>
+                    <span style="color: #666; font-size: 11px;">不要になったURLを削除したり、リストから選択して使用できます。</span>
+                  </td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>🔗 リンク</strong></td>
+                  <td style="padding: 10px; border: 1px solid #dee2e6;">
+                    入力されたスプレッドシートを新しいタブで開きます。<br>
+                    <span style="color: #666; font-size: 11px;">データを確認・編集したい時に便利です。</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>⏹️ 停止</strong></td>
+                  <td style="padding: 10px; border: 1px solid #dee2e6;">
+                    実行中の処理を中断します。<br>
+                    <span style="color: #666; font-size: 11px;">処理が長時間かかる場合や、途中で止めたい時に使用します。</span>
+                  </td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 10px; border: 1px solid #dee2e6;"><strong>🗑️ 削除</strong></td>
+                  <td style="padding: 10px; border: 1px solid #dee2e6;">
+                    スプレッドシートの3行目以降のデータを全て削除します。<br>
+                    <span style="color: #666; font-size: 11px;">⚠️ 注意：削除したデータは復元できません。事前にバックアップを推奨。</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- トラブルシューティング詳細 -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="color: #d73a49;">🆘 困った時のトラブルシューティング</h4>
+
+              <details style="margin: 10px 0; background: #fff5f5; padding: 10px; border-radius: 5px; border: 1px solid #ffdddd;">
+                <summary style="cursor: pointer; font-weight: 500;">❌ 「認証に失敗しました」と表示される</summary>
+                <div style="margin: 10px 0 0 0; padding-left: 15px;">
+                  <strong>原因と解決方法：</strong>
+                  <ol style="margin: 5px 0; padding-left: 20px;">
+                    <li>ブラウザのキャッシュをクリアして再度認証</li>
+                    <li>別のGoogleアカウントでログインしている可能性 → 正しいアカウントに切り替え</li>
+                    <li>権限を拒否した → 再度認証して全ての権限を許可</li>
+                    <li>それでも解決しない → Chrome拡張機能を再インストール</li>
+                  </ol>
+                </div>
+              </details>
+
+              <details style="margin: 10px 0; background: #fff5f5; padding: 10px; border-radius: 5px; border: 1px solid #ffdddd;">
+                <summary style="cursor: pointer; font-weight: 500;">❌ 「スプレッドシートが見つかりません」エラー</summary>
+                <div style="margin: 10px 0 0 0; padding-left: 15px;">
+                  <strong>チェックポイント：</strong>
+                  <ul style="margin: 5px 0; padding-left: 20px;">
+                    <li>URLが完全にコピーされているか確認（https://から始まる完全なURL）</li>
+                    <li>スプレッドシートの共有設定を確認（自分がアクセス権を持っているか）</li>
+                    <li>URLに余計なスペースや文字が含まれていないか</li>
+                    <li>スプレッドシートが削除されていないか</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details style="margin: 10px 0; background: #fff5f5; padding: 10px; border-radius: 5px; border: 1px solid #ffdddd;">
+                <summary style="cursor: pointer; font-weight: 500;">❌ 処理が途中で止まる・エラーになる</summary>
+                <div style="margin: 10px 0 0 0; padding-left: 15px;">
+                  <strong>考えられる原因：</strong>
+                  <ul style="margin: 5px 0; padding-left: 20px;">
+                    <li><strong>URL先のサイトがアクセス拒否：</strong>一部のサイトは自動取得を拒否します</li>
+                    <li><strong>ネットワークエラー：</strong>インターネット接続を確認してください</li>
+                    <li><strong>API制限：</strong>1日の処理制限に達した可能性（翌日再試行）</li>
+                    <li><strong>タイムアウト：</strong>サイトの応答が遅すぎる（後で再試行）</li>
+                  </ul>
+                  <p style="background: #fffbf0; padding: 8px; border-radius: 4px; margin-top: 10px;">
+                    💡 <strong>対処法：</strong>エラーが出た行を確認し、問題のあるURLを修正または削除してから再実行
+                  </p>
+                </div>
+              </details>
+
+              <details style="margin: 10px 0; background: #fff5f5; padding: 10px; border-radius: 5px; border: 1px solid #ffdddd;">
+                <summary style="cursor: pointer; font-weight: 500;">❌ ドキュメントが作成されない</summary>
+                <div style="margin: 10px 0 0 0; padding-left: 15px;">
+                  <strong>確認事項：</strong>
+                  <ol style="margin: 5px 0; padding-left: 20px;">
+                    <li>URL列に有効なURLが入力されているか</li>
+                    <li>Googleドライブの容量が不足していないか</li>
+                    <li>ドキュメント出力列が正しく設定されているか</li>
+                    <li>取得先のサイトがrobots.txtで制限されていないか</li>
+                  </ol>
+                </div>
+              </details>
+            </div>
+
+            <!-- 技術仕様 -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="color: #667eea;">⚙️ 技術仕様・制限事項</h4>
+
+              <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>📊 処理能力：</strong>
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                  <li>一度に処理できるURL数：約100件まで推奨</li>
+                  <li>1つのURLの処理時間：約3〜10秒（サイトにより異なる）</li>
+                  <li>API制限：1日あたり約1000リクエストまで</li>
+                </ul>
+              </div>
+
+              <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>🚫 取得できないサイト：</strong>
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                  <li>ログインが必要なページ（会員制サイト等）</li>
+                  <li>JavaScript で動的に生成されるコンテンツ</li>
+                  <li>PDFファイル、動画、画像のみのページ</li>
+                  <li>robots.txtで取得を禁止しているサイト</li>
+                  <li>CAPTCHAや認証が必要なページ</li>
+                </ul>
+              </div>
+
+              <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>💾 保存形式：</strong>
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                  <li>出力形式：Google ドキュメント（.gdoc）</li>
+                  <li>保存先：ログイン中のGoogleドライブ</li>
+                  <li>フォルダ：マイドライブのルートフォルダ</li>
+                  <li>命名規則：「名前_件名_日時」の形式</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- このコードの概要 -->
+            <div style="background: #f0f0ff; padding: 15px; border-radius: 8px; border: 1px solid #9999ff;">
+              <h4 style="color: #5555aa; margin-top: 0;">👨‍💻 このコードの技術的な概要（開発者向け）</h4>
+
+              <div style="background: white; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>📁 プロジェクト構成：</strong>
+                <ul style="margin: 5px 0; padding-left: 20px; font-family: monospace; font-size: 12px;">
+                  <li><strong>manifest.json</strong> - Chrome拡張機能の設定ファイル</li>
+                  <li><strong>popup.html</strong> - ユーザーインターフェース（このファイル）</li>
+                  <li><strong>popup.js</strong> - UIの動作制御とイベント処理</li>
+                  <li><strong>background.js</strong> - バックグラウンド処理とAPI通信</li>
+                  <li><strong>content.js</strong> - Webページからのコンテンツ取得</li>
+                </ul>
+              </div>
+
+              <div style="background: white; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>🔄 処理の流れ：</strong>
+                <ol style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                  <li><strong>認証フェーズ：</strong>OAuth 2.0でGoogle APIの認証トークンを取得</li>
+                  <li><strong>読み込みフェーズ：</strong>Google Sheets APIでスプレッドシートデータを取得</li>
+                  <li><strong>取得フェーズ：</strong>各URLにアクセスしてHTMLコンテンツを取得</li>
+                  <li><strong>変換フェーズ：</strong>HTMLをテキストに変換・整形</li>
+                  <li><strong>保存フェーズ：</strong>Google Docs APIで新規ドキュメント作成</li>
+                  <li><strong>更新フェーズ：</strong>スプレッドシートにドキュメントURLを書き込み</li>
+                </ol>
+              </div>
+
+              <div style="background: white; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>🛠️ 使用技術：</strong>
+                <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                  <li><strong>Google APIs：</strong>Sheets API v4, Docs API v1, OAuth 2.0</li>
+                  <li><strong>Chrome APIs：</strong>chrome.identity, chrome.storage, chrome.runtime</li>
+                  <li><strong>Web技術：</strong>HTML5, CSS3, Vanilla JavaScript (ES6+)</li>
+                  <li><strong>非同期処理：</strong>Promise, async/await パターン</li>
+                </ul>
+              </div>
+
+              <div style="background: #fffbf0; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <strong>🔑 重要な実装ポイント：</strong>
+                <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                  <li>バッチ処理による効率的なAPI呼び出し</li>
+                  <li>エラーハンドリングとリトライ機構</li>
+                  <li>進捗表示とユーザーフィードバック</li>
+                  <li>ローカルストレージでの設定保存</li>
+                  <li>セキュアなトークン管理</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- バージョン情報 -->
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="color: #667eea;">📱 バージョン情報・更新履歴</h4>
+              <div style="font-size: 12px; color: #666;">
+                <strong>現在のバージョン：</strong>1.0.0<br>
+                <strong>最終更新日：</strong>2024年<br>
+                <strong>対応ブラウザ：</strong>Google Chrome 88以降<br>
+                <br>
+                <strong>📝 更新履歴：</strong>
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                  <li>v1.0.0 - 初回リリース</li>
+                  <li>URL保存機能の追加</li>
+                  <li>列の自動検出機能の実装</li>
+                  <li>バッチ処理の最適化</li>
+                  <li>エラーハンドリングの改善</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- お問い合わせ -->
+            <div style="background: #f0fff0; padding: 15px; border-radius: 8px; border: 1px solid #90ee90;">
+              <h4 style="color: #228b22; margin-top: 0;">📧 サポート・お問い合わせ</h4>
+              <p style="margin: 10px 0; font-size: 12px;">
+                不具合や要望がございましたら、以下の情報と共にご連絡ください：
+              </p>
+              <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                <li>エラーメッセージの内容（スクリーンショット推奨）</li>
+                <li>使用しているChromeのバージョン</li>
+                <li>問題が発生した際の操作手順</li>
+                <li>スプレッドシートの構成（列の設定など）</li>
+              </ul>
+            </div>
+
+          </div>
+        </details>
       </div>
 
       <!-- 進捗表示 -->
